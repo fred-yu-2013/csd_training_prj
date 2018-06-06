@@ -11,13 +11,11 @@ class StockTest extends Specification {
 
     private Stock stock
 
-    @Before
     def setup() {
         stock = new Stock()
     }
 
-    @After
-    def tearDown() {
+    def cleanup() {
         stock.clearAll()
     }
 
@@ -42,6 +40,31 @@ class StockTest extends Specification {
 
         then: "仓库有10台笔记本"
         stock.getCount() == 10
+    }
+
+    def "进货进1台具体的笔记本"() {
+        given: "准备一台笔记本"
+        Notebook notebook = new Notebook()
+        String brand = Notebook.BRAND_APPLE
+        String model = "Mac"
+        String serialNumber = "SN20180606"
+        int price = 15000
+        notebook.setBrand(brand)
+        notebook.setModel(model)
+        notebook.setSerialNumber(serialNumber)
+        notebook.setPrice(price)
+
+        when: "存到仓库里"
+        stock.pushIntoOne(notebook)
+
+        then: "确认仓库里面仅有添加的那台"
+        stock.getCount() == 1
+        List<Notebook> notebooks = stock.getAll()
+        notebooks.size() == 1
+        notebook.getBrand() == brand
+        notebook.getModel() == model
+        notebook.getSerialNumber() == serialNumber
+        notebook.getPrice() == price
     }
 
 }

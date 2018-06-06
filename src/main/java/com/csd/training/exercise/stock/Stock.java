@@ -21,4 +21,12 @@ public class Stock {
     public void clearAll() {
         notebooks.clear();
     }
+
+    public void pushIntoOne(Notebook notebook) {
+        notebooks.add(notebook);
+    }
+
+    public List<Notebook> getAll() {
+        return notebooks;
+    }
 }
