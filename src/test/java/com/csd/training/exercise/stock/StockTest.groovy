@@ -67,4 +67,20 @@ class StockTest extends Specification {
         notebook.getPrice() == price
     }
 
+    def "出货出10台笔记本"() {
+        given: "仓库里有23台笔记本"
+        List<Notebook> notebooks = new ArrayList<>()
+        for (int i = 0; i < 23; i++) {
+            notebooks.add(new Notebook())
+        }
+        stock.pushInto(notebooks)
+
+        when: "取出10台"
+        List<Notebook> books = stock.pullOut(10);
+
+        then: "剩余13台"
+        books.size() == 10
+        stock.getAll().size() == 13
+    }
+
 }

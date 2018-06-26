@@ -29,4 +29,12 @@ public class Stock {
     public List<Notebook> getAll() {
         return notebooks;
     }
+
+    public List<Notebook> pullOut(int count) throws NoEnougthNotebooksException {
+        if (count > notebooks.size()) {
+            throw new NoEnougthNotebooksException();
+        }
+        notebooks = notebooks.subList(count, notebooks.size());
+        return notebooks.subList(0, count);
+    }
 }

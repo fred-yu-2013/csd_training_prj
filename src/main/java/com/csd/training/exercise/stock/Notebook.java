@@ -13,6 +13,7 @@ class Notebook {
     private int price;
 
     public String getBrand() {
+
         return brand;
     }
 
